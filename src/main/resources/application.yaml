@@ -1,0 +1,6 @@
+spring:
+  config:
+    import: optional:file:.env[.properties]
+  application:
+    name: threadit
+  profiles.include: oauth
