@@ -4,6 +4,8 @@ import com.petitjy.threadit.domain.article.entity.Article;
 import com.petitjy.threadit.domain.member.entity.Member;
 import jakarta.persistence.*;
 
+import java.sql.Timestamp;
+
 @Entity
 @Table(
         name = "scrap",
@@ -19,7 +21,7 @@ public class Scrap {
     private Long id;
 
     @Column(nullable = false)
-    private boolean status;
+    private Timestamp deletedAt;
 
     @ManyToOne
     @JoinColumn(name = "member_id", referencedColumnName = "id", nullable = false)

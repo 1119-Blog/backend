@@ -2,6 +2,7 @@ package com.petitjy.threadit.domain.article.entity;
 
 import com.petitjy.threadit.domain.blog.entity.Blog;
 import com.petitjy.threadit.domain.category.entity.Category;
+import com.petitjy.threadit.domain.image.entity.Image;
 import com.petitjy.threadit.domain.member.entity.Member;
 import com.petitjy.threadit.domain.thread.entity.Thread;
 import com.petitjy.threadit.global.entity.BaseTimeEntity;
@@ -21,9 +22,6 @@ public class Article extends BaseTimeEntity{
     @Column(length = 5000)
     private String content;
 
-    @Column(length = 255, nullable = false)
-    private String thumbnailPath;
-
     @Column(length = 255)
     private String hashtagStr;
 
@@ -42,6 +40,10 @@ public class Article extends BaseTimeEntity{
 
     @Column(nullable = false)
     private boolean isPublished;
+
+    @OneToOne
+    @JoinColumn(name = "thumbnail_id", referencedColumnName = "id")
+    private Image thumbnail;
 
     @ManyToOne
     @JoinColumn(name = "member_id", referencedColumnName = "id", nullable = false)

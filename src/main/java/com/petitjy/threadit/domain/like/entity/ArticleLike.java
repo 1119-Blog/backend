@@ -5,6 +5,8 @@ import com.petitjy.threadit.domain.member.entity.Member;
 import jakarta.persistence.*;
 import org.hibernate.annotations.ColumnDefault;
 
+import java.sql.Timestamp;
+
 @Entity
 @Table(name = "articlelike")
 public class ArticleLike {
@@ -13,7 +15,7 @@ public class ArticleLike {
     private Long id;
 
     @Column(nullable = false)
-    private boolean status;
+    private Timestamp deletedAt;
 
     @ManyToOne
     @JoinColumn(name = "article_id", referencedColumnName="id", nullable = false)
