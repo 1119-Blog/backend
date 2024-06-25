@@ -12,3 +12,7 @@ spring:
         dialect: org.hibernate.dialect.MySQLDialect
         format_sql: true      # 쿼리 로그 포맷 (정렬)
         show_sql: true        # 쿼리 로그 출력
+
+oauth:
+  base-uri: https://givendragon.site
+  redirect-uri: https://givendragon.site/api/oauth2/authorization/
