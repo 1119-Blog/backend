@@ -20,3 +20,10 @@ spring:
 oauth:
   base-uri: http://localhost:8080
   redirect-uri: http://localhost:8080/oauth2/authorization/
+
+jwt:
+  access-token-expire-duration: 1000 * 60 * 30L  # 30분
+  refresh-token-expire-duration: 1000 * 60 * 60 * 24L  # 24시간
+  access-token-cookie-name: access_token
+  refresh-token-cookie-name: access_token
+  secret: cadb72b2d47c47f5ac779a3e828f7bb286bc08b91f81418581a6d2026f4aa5f4

@@ -16,3 +16,10 @@ spring:
 oauth:
   base-uri: https://givendragon.site
   redirect-uri: https://givendragon.site/api/oauth2/authorization/
+
+jwt:
+  access-token-expire-duration: ${ACCESS_TOKEN_EXPIRE_DURATION}
+  refresh-token-expire-duration: ${REFRESH_TOKEN_EXPIRE_DURATION}
+  access-token-cookie-name: ${ACCESS_TOKEN_NAME}
+  refresh-token-cookie-name: ${REFRESH_TOKEN_NAME}
+  secret: ${TOKEN_SECRET}
