@@ -8,10 +8,13 @@ import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 import javax.crypto.SecretKey;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Component
@@ -51,7 +54,23 @@ public class JwtProvider {
                 .claim("role", member.getRole().value())
                 .expiration(expirationDate)
                 .issuedAt(expirationDate)
-                .signWith(key, Jwts.SIG.HS512)  // TODO secret 길이마다 256 384 512 달라지는데 맞는지 검증
+                .signWith(key, Jwts.SIG.HS512)
+                .compact();
+    }
+
+    public String createToken(Authentication authentication, LocalDateTime expirationTime) {
+        Date expirationDate = TimeUtil.localDateTime2Date(expirationTime);
+
+        String memberRole = authentication.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.joining());
+        return Jwts.builder()
+                .issuer("threadit")
+                .subject(authentication.getName())
+                .claim("role", memberRole)
+                .expiration(expirationDate)
+                .issuedAt(expirationDate)
+                .signWith(key, Jwts.SIG.HS512)
                 .compact();
     }
 
