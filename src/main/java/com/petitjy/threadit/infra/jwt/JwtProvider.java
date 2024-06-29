@@ -53,7 +53,6 @@ public class JwtProvider {
                 .claim("nickname", member.getNickname())
                 .claim("role", member.getRole().value())
                 .expiration(expirationDate)
-                .issuedAt(expirationDate)
                 .signWith(key, Jwts.SIG.HS512)
                 .compact();
     }
@@ -69,7 +68,6 @@ public class JwtProvider {
                 .subject(authentication.getName())
                 .claim("role", memberRole)
                 .expiration(expirationDate)
-                .issuedAt(expirationDate)
                 .signWith(key, Jwts.SIG.HS512)
                 .compact();
     }
