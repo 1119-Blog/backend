@@ -4,8 +4,13 @@ import com.petitjy.threadit.global.entity.BaseTimeEntity;
 import jakarta.persistence.*;
 import org.hibernate.annotations.ColumnDefault;
 
+import lombok.Builder;
+import lombok.ToString;
+
 @Entity
 @Table(name = "member")
+@ToString
+@Builder
 public class Member extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

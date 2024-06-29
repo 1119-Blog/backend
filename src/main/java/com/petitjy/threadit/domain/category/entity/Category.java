@@ -5,8 +5,11 @@ import jakarta.persistence.*;
 
 import java.util.List;
 
+import lombok.Builder;
+
 @Entity
 @Table(name = "category")
+@Builder
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

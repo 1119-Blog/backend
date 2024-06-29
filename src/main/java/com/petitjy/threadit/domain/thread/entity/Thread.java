@@ -4,8 +4,11 @@ import com.petitjy.threadit.domain.member.entity.Member;
 import jakarta.persistence.*;
 import org.hibernate.annotations.ColumnDefault;
 
+import lombok.Builder;
+
 @Entity
 @Table(name = "thread")
+@Builder
 public class Thread {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

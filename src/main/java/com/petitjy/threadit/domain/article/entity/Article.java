@@ -9,9 +9,14 @@ import com.petitjy.threadit.global.entity.BaseTimeEntity;
 import jakarta.persistence.*;
 import org.hibernate.annotations.ColumnDefault;
 
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+
 @Entity
 @Table(name = "article")
-public class Article extends BaseTimeEntity{
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class Article extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -60,4 +65,23 @@ public class Article extends BaseTimeEntity{
     @ManyToOne
     @JoinColumn(name = "thread_id", referencedColumnName = "id")
     private Thread thread;
+
+    @Builder
+    public Article(Long id, String title, String content, String hashtagStr, int hit, int threadOrder,
+                   ArticleVisibility visibility, boolean isPublished, Image thumbnail, Member member, Blog blog,
+                   Category category, Thread thread) {
+        this.id = id;
+        this.title = title;
+        this.content = content;
+        this.hashtagStr = hashtagStr;
+        this.hit = hit;
+        this.threadOrder = threadOrder;
+        this.visibility = visibility;
+        this.isPublished = isPublished;
+        this.thumbnail = thumbnail;
+        this.member = member;
+        this.blog = blog;
+        this.category = category;
+        this.thread = thread;
+    }
 }

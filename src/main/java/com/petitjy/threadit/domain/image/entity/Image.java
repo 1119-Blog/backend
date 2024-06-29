@@ -7,8 +7,11 @@ import org.springframework.data.annotation.CreatedDate;
 
 import java.sql.Timestamp;
 
+import lombok.Builder;
+
 @Entity
 @Table(name = "image")
+@Builder
 public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

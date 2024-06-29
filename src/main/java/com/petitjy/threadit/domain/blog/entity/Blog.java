@@ -2,9 +2,11 @@ package com.petitjy.threadit.domain.blog.entity;
 
 import com.petitjy.threadit.domain.member.entity.Member;
 import jakarta.persistence.*;
+import lombok.Builder;
 
 @Entity
 @Table(name = "blog")
+@Builder
 public class Blog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
