@@ -50,7 +50,7 @@ public class JwtResolver {
 
     public Role getMemberRole(String token) {
         Claims claims = getClaims(token);
-        return Role.valueOf("user");
+        return Role.valueOf((String) claims.get("role"));
     }
 
     public Date getExpirationDate(String token) {
