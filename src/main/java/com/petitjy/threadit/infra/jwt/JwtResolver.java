@@ -25,7 +25,7 @@ public class JwtResolver {
     private SecretKey key;
 
     @PostConstruct
-    public void setSecretKey() {
+    private void setSecretKey() {
         byte[] decode = Decoders.BASE64.decode(jwtProperties.getSecret());
         key = Keys.hmacShaKeyFor(decode);
     }
