@@ -18,6 +18,9 @@ class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
     private final String BASE_URI;
     private final JwtProvider jwtProvider;
 
+    private static final String ACCESS_TOKEN_COOKIE_NAME = "access_token";
+    private static final String REFRESH_TOKEN_COOKIE_NAME = "refresh_token";
+
     public OAuth2SuccessHandler(@Value("${oauth.base-uri}") String baseUri, JwtProvider jwtProvider) {
         this.BASE_URI = baseUri;
         this.jwtProvider = jwtProvider;
@@ -30,9 +33,9 @@ class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
         String accessToken = jwtProvider.createToken(authentication, jwtProvider.getAccessTokenExpirationDate());
         String refreshToken = jwtProvider.createToken(authentication, jwtProvider.getRefreshTokenExpirationDate());
 
-        ResponseCookie accessTokenCookie = ResponseCookie.from("access_token", accessToken)
+        ResponseCookie accessTokenCookie = ResponseCookie.from(ACCESS_TOKEN_COOKIE_NAME, accessToken)
                 .path("/").httpOnly(true).build();
-        ResponseCookie refreshTokenCookie = ResponseCookie.from("refresh_token", refreshToken)
+        ResponseCookie refreshTokenCookie = ResponseCookie.from(REFRESH_TOKEN_COOKIE_NAME, refreshToken)
                 .path("/").httpOnly(true).build();
         // TODO Refresh token 저장
 
