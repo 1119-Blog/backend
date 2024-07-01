@@ -21,8 +21,11 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class JwtProvider {
     private final JwtProperties jwtProperties;
-
     private SecretKey key;
+
+    private static final String ISSUER_NAME = "threadit";
+    public static final String NICKNAME = "nickname";
+    public static final String ROLE = "role";
 
     @PostConstruct
     private void setSecretKey() {
@@ -40,23 +43,23 @@ public class JwtProvider {
         return now.plusSeconds(jwtProperties.getRefreshTokenExpireDuration().toSeconds());
     }
 
-    /**
-     * @param member
-     * @param expirationTime > Use tokenProvider.getXXXTokenExpirationDate
-     */
+    @Deprecated
     public String createToken(Member member, LocalDateTime expirationTime) {
         Date expirationDate = TimeUtil.localDateTime2Date(expirationTime);
 
         return Jwts.builder()
-                .issuer("threadit")
+                .issuer(ISSUER_NAME)
                 .subject(member.getId().toString())
-                .claim("nickname", member.getNickname())
-                .claim("role", member.getRole().value())
+                .claim(NICKNAME, member.getNickname())
+                .claim(ROLE, member.getRole().name())
                 .expiration(expirationDate)
                 .signWith(key, Jwts.SIG.HS512)
                 .compact();
     }
 
+    /**
+     * @param expirationTime > Use tokenProvider.getXXXTokenExpirationDate
+     */
     public String createToken(Authentication authentication, LocalDateTime expirationTime) {
         Date expirationDate = TimeUtil.localDateTime2Date(expirationTime);
 
@@ -64,9 +67,9 @@ public class JwtProvider {
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining());
         return Jwts.builder()
-                .issuer("threadit")
+                .issuer(ISSUER_NAME)
                 .subject(authentication.getName())
-                .claim("role", memberRole)
+                .claim(ROLE, memberRole)
                 .expiration(expirationDate)
                 .signWith(key, Jwts.SIG.HS512)
                 .compact();
