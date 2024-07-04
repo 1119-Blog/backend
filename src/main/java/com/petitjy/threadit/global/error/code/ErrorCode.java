@@ -47,6 +47,10 @@ public enum ErrorCode implements ThreaditErrorCode{
     // T : Thread
     THREAD_NOT_FOUND(HttpStatus.NOT_FOUND, "T001", "Thread not found."),
 
+
+    // J : JWT
+    JWT_EXPIRED(HttpStatus.UNAUTHORIZED, "J001", "JWT가 만료되었습니다."),
+    JWT_INVALID(HttpStatus.BAD_REQUEST, "J002", "올바르지 않은 토큰입니다."),
     // ...
     ;
 
